@@ -75,6 +75,10 @@ def multiply_by_single_digit(number, single_digit):
 
 def multiply(a, b):
     """
+    >>> multiply(3, 111111111)
+    Traceback (most recent call last):
+      ...
+    ValueError: Those numbers are too long for me to remember!
     >>> multiply(-1, -3)
     3
     >>> multiply(0, 88888)
@@ -83,8 +87,8 @@ def multiply(a, b):
     88888
     >>> multiply(6, 7)
     42
-    >>> multiply(6000, 1000000)
-    6000000000
+    >>> multiply(600, 1000)
+    600000
     >>> multiply(20, 5)
     100
     >>> multiply(3, 222)
@@ -92,8 +96,11 @@ def multiply(a, b):
     >>> multiply(33, 55)
     Traceback (most recent call last):
       ...
-    ValueError: Could not calculate 33 * 55 in my head.
+    ValueError: Could not calculate 33 * 55 in my head!
     """
+    if len(str(a)) + len(str(b)) > 8:
+        # See http://en.wikipedia.org/wiki/Digit_span
+        raise ValueError('Those numbers are too long for me to remember!')
 
     # factor out negatives
     negatives = sum([x < 0 for x in (a, b)])
@@ -137,7 +144,7 @@ def multiply(a, b):
     except ValueError:
         pass
 
-    raise ValueError('Could not calculate %d * %d in my head.' % (a, b))
+    raise ValueError('Could not calculate %d * %d in my head!' % (a, b))
 
 
 class NaiveNumber(int):
